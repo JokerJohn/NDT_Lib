@@ -3,13 +3,17 @@
 These libraries are from [AutoWare](https://github.com/autowarefoundation/autoware)  and [ndt_omp](https://github.com/koide3/ndt_omp.git)   
 ---
 ## Environment
-`CUDA 9.0` is required.
+for `ndt_gpu`，`CUDA 9.0` is required.
 
 > 1. check GPU version: `lspci | grep -i nvidia`
 > 2. check NVIDIA version: `sudo dpkg --list | grep nvidia-*`
 > 3. check CUDA version: `nvcc --version`
 
+- `ndt_cpu/gpu/tku/omp_registration` are from Autoware，different form `pcl_ndt`
+- `ndt_omp` is from koide3's Project
+
 ## Usage:
+
 1. 将`lib`和`include`文件夹丢在你的项目中
 
 2. 在`cmakelist`中合适位置添加  
