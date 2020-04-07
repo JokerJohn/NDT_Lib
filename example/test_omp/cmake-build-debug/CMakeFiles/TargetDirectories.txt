@@ -1,3 +1,0 @@
-/home/catalina/my_git/NDT_Lib/test_omp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/catalina/my_git/NDT_Lib/test_omp/cmake-build-debug/CMakeFiles/test_omp.dir
-/home/catalina/my_git/NDT_Lib/test_omp/cmake-build-debug/CMakeFiles/edit_cache.dir
