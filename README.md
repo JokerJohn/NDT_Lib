@@ -1,8 +1,6 @@
-# NDT library  
+# NDT Lib  
 
-These libraries are from [AutoWare](https://github.com/autowarefoundation/autoware)  
-We use these libraries to create dynamic link libraries
-
+These libraries are from [AutoWare](https://github.com/autowarefoundation/autoware)  and [ndt_omp](https://github.com/koide3/ndt_omp.git)   
 ---
 ## Environment
 `CUDA9.0` is required.
@@ -11,13 +9,32 @@ We use these libraries to create dynamic link libraries
 > 3. check CUDA version: `nvcc --version`
 
 ## Usage:
-1. Download all these files, and build it.
-> * create a new project, and put all these files under `src` folder.
-> * conduct `catkin_make -DCMAKE_BUILD_TYPE=Release`
-> * check `devel/lib` folder, and you can get all the `.so` files.(the `libndt_gpu.so` is about 1.1MB)
+1. 将lib和include文件夹丢在你的项目中
 
-2. Put all the `.so` files to other folder you want, and add the folder to `.bashrc`   
-> for example:  
-> `export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH`
+2. 在cmakelist中合适位置添加  
+```makefile
+find_package(OpenMP REQUIRED) #可选，仅ndt_omp用到
+if(OPENMP_FOUND)
+    message(STATUS "OPENMP FOUND")
+    set(OpenMP_FLAGS ${OpenMP_CXX_FLAGS})  # or if you use C: ${OpenMP_C_FLAGS}
+    set(OpenMP_LIBS gomp)
+endif()
 
-3. Check `CMakeLists.txt` to make sure the directory is linked.
+include_directories(include) #头文件目录
+link_directories(lib) #找到.so
+```
+
+链接相应的库
+
+```makefile
+target_link_libraries(xx ${OpenMP_LIBS} ndt_cpu ndt_omp) #OpenMP_LIBS是ndt_omp需要用到的,ndt_cpu不需要
+```
+
+3. 在main.cpp中引入头文件
+
+```c++
+#include <pclomp/ndt_omp.h> //按include相对路径即可
+#include <ndt_cpu/NormalDistributionsTransform.h>
+```
+
+4. 写法可参考example示例代码
